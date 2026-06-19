@@ -10,13 +10,13 @@ import logging
 import sys
 import importlib
 import shutil
-import provider
+import point_mae.segmentation.provider as provider
 import numpy as np
 import torch.optim as optim
 from timm.scheduler import CosineLRScheduler
 from pathlib import Path
 from tqdm import tqdm
-from dataset import PartNormalDataset
+from point_mae.segmentation.dataset import PartNormalDataset
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = BASE_DIR

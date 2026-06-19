@@ -1,2 +1,2 @@
 from .build import build_model_from_cfg
-import models.Point_MAE
+import point_mae.models.Point_MAE

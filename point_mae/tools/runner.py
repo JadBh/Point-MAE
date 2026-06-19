@@ -2,10 +2,11 @@ import torch
 import torch.nn as nn
 import os
 import json
-from tools import builder
-from utils import misc, dist_utils
+from point_mae.tools import builder
+from point_mae.utils import dist_utils
+from point_mae.utils import misc
 import time
-from utils.logger import *
+from point_mae.utils.logger import *
 
 import cv2
 import numpy as np

@@ -2,7 +2,7 @@ import numpy as np
 import os
 from torch.utils.data import Dataset
 import torch
-from pointnet_util import farthest_point_sample, pc_normalize
+from point_mae.segmentation.pointnet_util import farthest_point_sample, pc_normalize
 import json
 
 

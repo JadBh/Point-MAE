@@ -1,8 +1,9 @@
 # from tools import run_net
-from tools import test_net
-from utils import parser, dist_utils, misc
-from utils.logger import *
-from utils.config import *
+from point_mae.tools import test_net
+from point_mae.utils import dist_utils, misc
+from point_mae.utils import parser
+from point_mae.utils.logger import *
+from point_mae.utils.config import *
 import time
 import os
 import torch

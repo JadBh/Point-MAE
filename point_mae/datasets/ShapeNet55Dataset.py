@@ -4,7 +4,7 @@ import numpy as np
 import torch.utils.data as data
 from .io import IO
 from .build import DATASETS
-from utils.logger import *
+from point_mae.utils.logger import *
 
 @DATASETS.register_module()
 class ShapeNet(data.Dataset):

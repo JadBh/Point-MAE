@@ -1,4 +1,4 @@
-from utils import registry
+from point_mae.utils import registry
 
 
 DATASETS = registry.Registry('dataset')

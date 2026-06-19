@@ -1,9 +1,10 @@
-from tools import pretrain_run_net as pretrain
-from tools import finetune_run_net as finetune
-from tools import test_run_net as test_net
-from utils import parser, dist_utils, misc
-from utils.logger import *
-from utils.config import *
+from point_mae.tools import pretrain_run_net as pretrain
+from point_mae.tools import finetune_run_net as finetune
+from point_mae.tools import test_run_net as test_net
+from point_mae.utils import dist_utils, misc
+from point_mae.utils import parser
+from point_mae.utils.logger import *
+from point_mae.utils.config import *
 import time
 import os
 import torch

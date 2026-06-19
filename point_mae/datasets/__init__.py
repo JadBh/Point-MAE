@@ -1,0 +1,5 @@
+from .build import build_dataset_from_cfg
+import point_mae.datasets.ShapeNet55Dataset
+import point_mae.datasets.ModelNetDataset
+import point_mae.datasets.ModelNetDatasetFewShot
+import point_mae.datasets.ScanObjectNNDataset

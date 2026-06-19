@@ -5,12 +5,12 @@ import timm
 from timm.layers import DropPath, trunc_normal_
 import numpy as np
 from .build import MODELS
-from utils import misc
-from utils.checkpoint import get_missing_parameters_message, get_unexpected_parameters_message
-from utils.logger import *
+from point_mae.utils import misc
+from point_mae.utils.checkpoint import get_missing_parameters_message, get_unexpected_parameters_message
+from point_mae.utils.logger import *
 import random
 from knn_cuda import KNN
-from extensions.chamfer_dist import ChamferDistanceL1, ChamferDistanceL2
+from point_mae.extensions.chamfer_dist import ChamferDistanceL1, ChamferDistanceL2
 
 
 class Encoder(nn.Module):   ## Embedding module

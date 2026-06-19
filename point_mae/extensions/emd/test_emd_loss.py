@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 import time
-from emd import earth_mover_distance
+from point_mae.extensions.emd.emd import earth_mover_distance
 
 # gt
 p1 = torch.from_numpy(np.array([[[1.7, -0.1, 0.1], [0.1, 1.2, 0.3]]], dtype=np.float32)).cuda()
