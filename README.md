@@ -19,7 +19,7 @@ GCC >= 4.9;
 torchvision;
 
 ```
-pip install -r requirements.txt
+uv sync
 ```
 <details>
 <summary> For Linux Kernel 6.0 or above (e.g. Ubuntu 24)
