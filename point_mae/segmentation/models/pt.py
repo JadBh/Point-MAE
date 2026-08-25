@@ -5,7 +5,7 @@ from timm.layers import DropPath, trunc_normal_
 from point_mae.segmentation.logger import get_missing_parameters_message, get_unexpected_parameters_message
 
 from pointnet2_ops import pointnet2_utils
-from knn_cuda import KNN
+from knn_minimal import KnnMinimal as KNN
 from point_mae.segmentation.models.pointnet2_utils import PointNetFeaturePropagation
 
 def fps(data, number):

@@ -13,6 +13,8 @@ import chamfer
 class ChamferFunction(torch.autograd.Function):
     @staticmethod
     def forward(ctx, xyz1, xyz2):
+        # from IPython import embed
+        # embed()
         dist1, dist2, idx1, idx2 = chamfer.forward(xyz1, xyz2)
         ctx.save_for_backward(xyz1, xyz2, idx1, idx2)
 

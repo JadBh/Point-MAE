@@ -9,10 +9,21 @@ import time
 import os
 import torch
 from tensorboardX import SummaryWriter
+from IPython import embed
+
+# import torch.multiprocessing as mp
+# mp.set_start_method('spawn', force=True)
+
+
+"""
+To run:
+uv run main.py --config cfgs/pretrain.yaml --exp_name SwissSurface_exp --num_workers 0
+"""
 
 def main():
     # args
     args = parser.get_args()
+
     # CUDA
     args.use_gpu = torch.cuda.is_available()
     if args.use_gpu:

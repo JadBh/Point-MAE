@@ -7,3 +7,7 @@ best/
 dist/
 build/
 *.egg-info/
+
+**__pycache__**
+point_mae/experiments/
+point_mae/vis/

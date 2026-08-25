@@ -2,6 +2,7 @@ import h5py
 import numpy as np
 # import open3d
 import os
+import laspy
 
 class IO:
     @classmethod
@@ -16,6 +17,9 @@ class IO:
             return cls._read_h5(file_path)
         elif file_extension in ['.txt']:
             return cls._read_txt(file_path)
+        elif file_extension in ['.las', '.laz']:
+            return laspy.read(file_path)
+
         else:
             raise Exception('Unsupported file extension: %s' % file_extension)
 
