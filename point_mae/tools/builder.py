@@ -192,6 +192,7 @@ def load_model(base_model, ckpt_path, logger=None):
         base_ckpt = {
             k.replace("module.", ""): v for k, v in state_dict["base_model"].items()
         }
+        print_log(f"loading from epoch {state_dict['epoch']}")
     else:
         raise RuntimeError("mismatch of ckpt weight")
     base_model.load_state_dict(base_ckpt, strict=True)
@@ -217,10 +218,13 @@ def load_decoder_weights(base_model, ckpt_path, logger=None):
     load can stay strict.
     """
 
-    print_log(f"Loading decoder weights from {ckpt_path}...", logger=logger)
-
     state_dict = torch.load(ckpt_path, map_location="cpu")
     checkpoint_weights = state_dict["base_model"]
+
+    print_log(
+        f"Loading decoder weights from {ckpt_path}, epoch {state_dict['epoch']}...",
+        logger=logger,
+    )
 
     # Checkpoints saved under DataParallel prefix every key with "module.".
     unwrapped_weights = {}

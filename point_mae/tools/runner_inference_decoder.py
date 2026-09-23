@@ -61,14 +61,18 @@ def infer_decoder(config):
 
                 roll, pitch = 110, -90
 
-                centers = centers.squeeze().detach().cpu().numpy()
-                centers = misc.get_ptcloud_img(centers, roll, pitch, draw_axes=True)
-                centers_img = np.ascontiguousarray(centers[150:650, 150:675, :])
+                centers_img = centers.squeeze().detach().cpu().numpy()
+                centers_img = misc.get_ptcloud_img(
+                    centers_img, roll, pitch, draw_axes=True
+                )
+                centers_img = np.ascontiguousarray(centers_img[150:650, 150:675, :])
 
-                reconstruction = reconstruction.squeeze().detach().cpu().numpy()
-                reconstruction = misc.get_ptcloud_img(reconstruction, roll, pitch)
+                reconstruction_img = reconstruction.squeeze().detach().cpu().numpy()
+                reconstruction_img = misc.get_ptcloud_img(
+                    reconstruction_img, roll, pitch
+                )
                 reconstruction_img = np.ascontiguousarray(
-                    reconstruction[150:650, 150:675, :]
+                    reconstruction_img[150:650, 150:675, :]
                 )
 
                 cv2.putText(
@@ -137,7 +141,7 @@ def infer_decoder(config):
                 )
 
                 torch.save(
-                    reconstruction,
+                    reconstruction.squeeze().detach().cpu(),
                     pointcloud_path,
                 )
                 print(f"saved {pointcloud_path}")

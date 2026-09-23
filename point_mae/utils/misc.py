@@ -193,7 +193,9 @@ def seprate_point_cloud(xyz, num_points, crop, fixed_points=None, padding_zeros=
     return input_data.contiguous(), crop_data.contiguous()
 
 
-def get_ptcloud_img(ptcloud, roll, pitch, draw_axes=True, axis_length=1.0):
+def get_ptcloud_img(ptcloud, roll, pitch, draw_axes=True, axis_length=0.4, size=26):  
+    # size default is 36
+
     fig = plt.figure(figsize=(8, 8))
 
     x, z, y = ptcloud.transpose(1, 0)
@@ -216,7 +218,7 @@ def get_ptcloud_img(ptcloud, roll, pitch, draw_axes=True, axis_length=1.0):
     # ax.set_box_aspect((1, 1, 1)) # so 1 unit renders the same on all three axes
     # ax.set_aspect("equal")      # matplotlib >= 3.6: stops the projection being stretched
 
-    ax.scatter(x, y, z, zdir="z", c=y, cmap="jet")
+    ax.scatter(x, y, z, zdir="z", c=y, cmap="jet", s=size)
 
     if draw_axes:
         # Scatter draws (x, y, z), i.e. data columns (0, 2, 1), so the plot's

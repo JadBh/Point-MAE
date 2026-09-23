@@ -16,7 +16,6 @@ def test_net(config):
 
     base_model = builder.model_builder(config.model)
 
-    # base_model.load_model_from_ckpt(config.ckpts)
     builder.load_model(base_model, config.chkpt_path, logger=logger)
 
     if config.use_gpu:
@@ -94,8 +93,8 @@ def test(base_model, test_dataloader, config, logger=None):
                 points = points.squeeze().detach().cpu().numpy()
 
                 np.savetxt(os.path.join(data_path, "gt.txt"), points, delimiter=";")
-                gt_img = misc.get_ptcloud_img(points, a, b)
-                gt_img = np.ascontiguousarray(gt_img[150:650, 150:675, :])
+                # gt_img = misc.get_ptcloud_img(points, a, b)
+                # gt_img = np.ascontiguousarray(gt_img[150:650, 150:675, :])
 
                 model_input = (
                     model_input.squeeze().detach().cpu().numpy().reshape(-1, 3)
@@ -129,18 +128,18 @@ def test(base_model, test_dataloader, config, logger=None):
                 dense_img = misc.get_ptcloud_img(reconstruction, a, b)
                 dense_img = np.ascontiguousarray(dense_img[150:650, 150:675, :])
 
-                cv2.putText(
-                    gt_img,
-                    f"Ground Truth {len(points)} pts",
-                    (20, 40),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    1,
-                    (0, 0, 0),
-                )
+                # cv2.putText(
+                #     gt_img,
+                #     f"Ground Truth {len(points)} pts",
+                #     (20, 40),
+                #     cv2.FONT_HERSHEY_SIMPLEX,
+                #     1,
+                #     (0, 0, 0),
+                # )
 
                 cv2.putText(
                     model_input_img,
-                    f"Model input after sampling {len(model_input)} pts",
+                    f"Input {len(model_input)} pts",
                     (20, 40),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     1,
@@ -165,9 +164,18 @@ def test(base_model, test_dataloader, config, logger=None):
                     (0, 0, 0),
                 )
 
-                img = np.concatenate(
-                    [gt_img, model_input_img, vis_img, dense_img], axis=1
-                )
+                # img = np.concatenate(
+                #     [gt_img, model_input_img, vis_img, dense_img], axis=1
+
+                if config.model.decode_visible_patches:
+                    img = np.concatenate(
+                        [model_input_img, dense_img], axis=1
+                        )
+                else:
+                    img = np.concatenate(
+                        [model_input_img, vis_img, dense_img], axis=1
+                    )
+
 
                 # Create a blank header above the image
                 line_height = 40
@@ -224,6 +232,23 @@ def test(base_model, test_dataloader, config, logger=None):
                     complete_original,
                     loss,
                 ) = base_model(points, sample_id, vis=config.vis)
+
+            if config.save_reconstructed_pointcloud:
+                reconstructed_pointcloud_saving_dir = Path(
+                    config.experiment_output_path, "reconstructed_pointclouds"
+                )
+                reconstructed_pointcloud_saving_dir.mkdir(parents=True, exist_ok=True)
+                reconstructed_pointcloud_saving_path = os.path.join(
+                    reconstructed_pointcloud_saving_dir,
+                    f"reconstruction_of_sample_{sample_id.item()}.pt",
+                )
+                torch.save(
+                    complete_reconstructed.squeeze(),
+                    reconstructed_pointcloud_saving_path,
+                )
+                print_log(
+                    f"saved reconstructed pointclouds at {reconstructed_pointcloud_saving_path}"
+                )
 
             batch_size = points.shape[0]
             total_loss += loss.item() * batch_size

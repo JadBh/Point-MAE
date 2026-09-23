@@ -126,15 +126,15 @@ def train_network(config):
 
             mlflow.log_metric("train/batch/loss", loss.item(), step=mlflow_step)
 
-            log_batched_reconstruction_similarity_metrics(
-                reconstruction,
-                reconstruction_gt,
-                complete_reconstructed,
-                complete_original,
-                mlflow_step,
-                run_type="train",
-                scope="batch",
-            )
+            # log_batched_reconstruction_similarity_metrics(
+            #     reconstruction,
+            #     reconstruction_gt,
+            #     complete_reconstructed,
+            #     complete_original,
+            #     mlflow_step,
+            #     run_type="train",
+            #     scope="batch",
+            # )
 
             all_reconstruction.append(reconstruction.detach().cpu())
             all_reconstruction_gt.append(reconstruction_gt.detach().cpu())
